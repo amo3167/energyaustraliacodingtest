@@ -2,7 +2,6 @@ package com.energyaustralia.codingtest.service;
 
 import com.energyaustralia.codingtest.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,11 +9,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
+/**
+ * @author amo31
+ */
 public class RecordLabelsImpl implements RecordLablesService{
 
+    FestivalsService festivalsService;
+
     @Autowired
-    FestivalCache cache;
+    public RecordLabelsImpl(FestivalsService festivalsService) {
+        this.festivalsService = festivalsService;
+    }
 
     /**
      * Construct record labels from music festival data
@@ -24,8 +29,16 @@ public class RecordLabelsImpl implements RecordLablesService{
     @Override
     public List<RecordLabel> getRecordLabels() {
 
-        return reverse(cache.getFestivals());
+        return reverse(festivalsService.getFestivalsData());
 
+    }
+
+    /**
+     * Clear cache
+     */
+    @Override
+    public void clearCache() {
+        festivalsService.clearCache();
     }
 
     /**

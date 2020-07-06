@@ -2,12 +2,14 @@ package com.energyaustralia.codingtest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * @author amo31
  */
+@EnableCaching
 @SpringBootApplication
 public class CodingtestApplication {
 

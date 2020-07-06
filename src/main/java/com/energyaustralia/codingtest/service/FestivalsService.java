@@ -1,7 +1,6 @@
 package com.energyaustralia.codingtest.service;
 
 import com.energyaustralia.codingtest.model.MusicFestival;
-import com.energyaustralia.codingtest.model.RecordLabel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,4 +18,8 @@ public interface FestivalsService {
     List<MusicFestival> getFestivalsData();
 
 
+    /**
+     * Clear local cache
+     */
+    void clearCache();
 }
