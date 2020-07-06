@@ -1,24 +1,24 @@
 package com.energyaustralia.codingtest.service;
 
 import com.energyaustralia.codingtest.model.MusicFestival;
-import com.energyaustralia.codingtest.model.RecordLabel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author amo31
  */
+@Service("festivalsService")
 public class FestivalsServiceImpl implements FestivalsService{
 
     static final String URL = "http://eacodingtest.digital.energyaustralia.com.au/api/v1/festivals";
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Autowired
     public FestivalsServiceImpl(RestTemplate restTemplate) {
@@ -32,13 +32,22 @@ public class FestivalsServiceImpl implements FestivalsService{
     @Override
     @Cacheable("festivalDataCache")
     public List<MusicFestival> getFestivalsData() {
+        List<MusicFestival> result = new ArrayList<>();
 
-        return  Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(URL, MusicFestival[].class)));
+        //TODO: need to handle exception
+        ResponseEntity<MusicFestival[]> response = restTemplate.getForEntity(URL,MusicFestival[].class);
+        MusicFestival[] festivals = response.getBody();
+        if(festivals != null) {
+                result = Arrays.asList(festivals);
+        }
+        return result;
+     }
 
-    }
-
-    @CacheEvict(value = "festivalDataCache", allEntries = true)
+    /**
+     * Clear festival cache
+     */
     @Override
+    @CacheEvict(value = "festivalDataCache", allEntries = true)
     public void clearCache() {
         //log.info("Cleared task cache");
     }

@@ -1,23 +1,27 @@
 package com.energyaustralia.codingtest.service;
 
 import com.energyaustralia.codingtest.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * @author amo31
  */
-public class RecordLabelsImpl implements RecordLablesService{
+@Service("recordLabelsService")
+public class RecordLabelsServiceImpl implements RecordLabelsService {
 
-    FestivalsService festivalsService;
+    Logger logger = LoggerFactory.getLogger(RecordLabelsServiceImpl.class);
+
+    private final FestivalsServiceImpl festivalsService;
 
     @Autowired
-    public RecordLabelsImpl(FestivalsService festivalsService) {
+    public RecordLabelsServiceImpl(FestivalsServiceImpl festivalsService) {
         this.festivalsService = festivalsService;
     }
 
@@ -43,7 +47,7 @@ public class RecordLabelsImpl implements RecordLablesService{
 
     /**
      * Reverse the relationships of music festival data
-     * @param festivals
+     * @param festivals List of MusicFestival
      * @return List<RecordLabel>
      */
     private List<RecordLabel> reverse(List<MusicFestival> festivals) {
@@ -51,11 +55,20 @@ public class RecordLabelsImpl implements RecordLablesService{
         Map<String,RecordLabel> recordLabels = new HashMap<>();
 
         for (MusicFestival festival:festivals) {
+            if(StringUtils.isEmpty(festival.getName())) {
+                logger.info("Empty festival {} ",festival.getName());
+                festival.setName("");
+            }
+
             for(Band band: festival.getBands()){
 
+                if(!isValidBand(band)) {
+                    logger.warn("Skip invalid band {} ",band);
+                    continue;
+                }
                 if(!recordLabels.containsKey(band.getRecordLabel())){
                     RecordLabel recordLabel = new RecordLabel(band.getRecordLabel());
-                    List<BandInFestival> bandInFestivals = new ArrayList<>();
+                    TreeSet<BandInFestival> bandInFestivals = new TreeSet<>();
                     bandInFestivals.add(new BandInFestival(band.getName(),festival.getName()));
                     recordLabel.setBands(bandInFestivals);
                     recordLabels.put(band.getRecordLabel(), recordLabel);
@@ -70,5 +83,14 @@ public class RecordLabelsImpl implements RecordLablesService{
 
         return recordLabels.values().stream().sorted(RecordLabel::compareTo).collect(Collectors.toList());
 
+    }
+
+    /**
+     * Check if band contain empty band name or recordLabel name
+     * @param band Band
+     * @return True： valid band, False: Invalid band
+     */
+    private boolean isValidBand(Band band){
+        return !StringUtils.isEmpty(band.getName()) && !StringUtils.isEmpty(band.getRecordLabel()) ;
     }
 }

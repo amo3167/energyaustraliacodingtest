@@ -3,16 +3,14 @@ package com.energyaustralia.codingtest.model;
 import java.util.List;
 import java.util.Objects;
 
-public class MusicFestival implements Comparable<MusicFestival>{
+/**
+ * @author amo31
+ */
+public class MusicFestival{
 
     private String name;
 
     private List<Band> bands;
-
-    public MusicFestival(String name, List<Band> bands) {
-        this.name = name;
-        this.bands = bands;
-    }
 
     public String getName() {
         return name;
@@ -43,8 +41,4 @@ public class MusicFestival implements Comparable<MusicFestival>{
         return Objects.hash(getName());
     }
 
-    @Override
-    public int compareTo(MusicFestival obj) {
-        return this.name.compareTo(obj.name);
-    }
 }

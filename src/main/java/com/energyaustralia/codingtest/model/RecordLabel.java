@@ -1,9 +1,6 @@
 package com.energyaustralia.codingtest.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -33,14 +30,12 @@ public class RecordLabel implements Comparable<RecordLabel> {
         this.recordLabelName = recordLabel;
     }
 
-    public List<BandInFestival> getBands() {
-        return new ArrayList<>(bands);
+    public TreeSet<BandInFestival> getBands() {
+        return bands;
     }
 
-    public void setBands(List<BandInFestival> bands) {
-        this.bands = bands.stream().collect(Collectors.toCollection(
-                ()-> new TreeSet<>(BandInFestival::compareTo)
-        ));
+    public void setBands(TreeSet<BandInFestival> bands) {
+        this.bands = bands;
     }
 
     @Override
@@ -59,5 +54,13 @@ public class RecordLabel implements Comparable<RecordLabel> {
     @Override
     public int compareTo(RecordLabel obj) {
         return this.recordLabelName.compareTo(obj.recordLabelName);
+    }
+
+    @Override
+    public String toString() {
+        return "RecordLabel{" +
+                "recordLabelName='" + recordLabelName + '\'' +
+                ", bands=" + bands +
+                '}';
     }
 }

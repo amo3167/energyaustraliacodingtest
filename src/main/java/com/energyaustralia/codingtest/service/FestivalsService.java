@@ -1,14 +1,12 @@
 package com.energyaustralia.codingtest.service;
 
 import com.energyaustralia.codingtest.model.MusicFestival;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @author amo31
  */
-@Service
 public interface FestivalsService {
 
     /**
@@ -17,9 +15,8 @@ public interface FestivalsService {
      */
     List<MusicFestival> getFestivalsData();
 
-
     /**
-     * Clear local cache
+     * Clear festival cache
      */
     void clearCache();
 }

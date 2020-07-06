@@ -5,14 +5,9 @@ import java.util.Objects;
 /**
  * @author amo31
  */
-public class Band implements Comparable<Band>{
+public class Band{
     private String name;
     private String recordLabel;
-
-    public Band(String name, String recordLabel) {
-        this.name = name;
-        this.recordLabel = recordLabel;
-    }
 
     public String getName() {
         return name;
@@ -45,12 +40,10 @@ public class Band implements Comparable<Band>{
     }
 
     @Override
-    public int compareTo(Band obj) {
-        int result = this.name.compareTo(obj.name);
-
-        if (result == 0) {
-            return this.recordLabel.compareTo(obj.recordLabel);
-        }
-        return result;
+    public String toString() {
+        return "Band{" +
+                "name='" + name + '\'' +
+                ", recordLabel='" + recordLabel + '\'' +
+                '}';
     }
 }

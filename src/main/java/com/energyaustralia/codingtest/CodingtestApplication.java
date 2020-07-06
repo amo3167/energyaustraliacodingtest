@@ -9,8 +9,8 @@ import org.springframework.web.client.RestTemplate;
 /**
  * @author amo31
  */
-@EnableCaching
 @SpringBootApplication
+@EnableCaching(proxyTargetClass = true)
 public class CodingtestApplication {
 
     @Bean

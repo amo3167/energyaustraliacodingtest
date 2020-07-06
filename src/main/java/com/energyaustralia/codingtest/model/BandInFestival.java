@@ -53,4 +53,12 @@ public class BandInFestival implements Comparable<BandInFestival>{
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "BandInFestival{" +
+                "bandName='" + bandName + '\'' +
+                ", festivalName='" + festivalName + '\'' +
+                '}';
+    }
 }

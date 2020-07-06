@@ -1,7 +1,7 @@
 package com.energyaustralia.codingtest.controller;
 
 import com.energyaustralia.codingtest.model.RecordLabel;
-import com.energyaustralia.codingtest.service.RecordLablesService;
+import com.energyaustralia.codingtest.service.RecordLabelsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class FestivalsController {
 
 
-    private final RecordLablesService service;
+    private final RecordLabelsServiceImpl service;
 
     @Autowired
-    public FestivalsController(RecordLablesService service) {
+    public FestivalsController(RecordLabelsServiceImpl service) {
         this.service = service;
     }
 
