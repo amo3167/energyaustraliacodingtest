@@ -13,12 +13,8 @@ public interface FestivalsService {
     /**
      * Retrieve music festival data from festival management API
      * @return List of MusicFestival
-     * @throws ValidationException
+     * ValidationException
      */
     List<MusicFestival> getFestivalsData() throws ValidationException;
 
-    /**
-     * Clear festival cache
-     */
-    void clearCache();
 }

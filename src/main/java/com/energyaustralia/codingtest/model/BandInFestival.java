@@ -9,6 +9,9 @@ public class BandInFestival implements Comparable<BandInFestival>{
     private String bandName;
     private String festivalName;
 
+    public BandInFestival() {
+    }
+
     public BandInFestival(String name, String festivalName) {
         this.bandName = name;
         this.festivalName = festivalName;

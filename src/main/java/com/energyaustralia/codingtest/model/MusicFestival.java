@@ -28,6 +28,14 @@ public class MusicFestival{
         this.bands = bands;
     }
 
+    public MusicFestival(String name, List<Band> bands) {
+        this.name = name;
+        this.bands = bands;
+    }
+
+    public MusicFestival() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

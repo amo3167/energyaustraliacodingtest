@@ -18,8 +18,4 @@ public interface RecordLabelsService {
      */
     List<RecordLabel> getRecordLabels() throws ValidationException;
 
-    /**
-     * Clear cache
-     */
-    void clearCache();
 }

@@ -5,7 +5,7 @@
         <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
         <value-type>java.util.List</value-type>
         <expiry>
-            <ttl unit="seconds">300</ttl>
+            <ttl unit="seconds">10</ttl>
         </expiry>
         <resources>
             <heap unit="kB">100</heap>

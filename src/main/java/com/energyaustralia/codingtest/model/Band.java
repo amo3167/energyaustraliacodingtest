@@ -25,6 +25,14 @@ public class Band{
         this.recordLabel = recordLabel;
     }
 
+    public Band(String name, String recordLabel) {
+        this.name = name;
+        this.recordLabel = recordLabel;
+    }
+
+    public Band() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

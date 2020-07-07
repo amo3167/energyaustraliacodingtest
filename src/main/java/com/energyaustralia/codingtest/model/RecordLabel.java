@@ -11,6 +11,9 @@ public class RecordLabel implements Comparable<RecordLabel> {
     private String recordLabelName;
     private SortedSet<BandInFestival> bands;
 
+    public RecordLabel() {
+    }
+
     public RecordLabel(String recordLabel){
         this.recordLabelName = recordLabel;
     }

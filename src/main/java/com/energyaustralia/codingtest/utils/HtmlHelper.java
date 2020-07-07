@@ -22,14 +22,14 @@ public class HtmlHelper {
      */
     public static void writeHtmlFile(List<RecordLabel> recordLabelList,String filePath) throws IOException {
         Document doc = Jsoup.parse("<html></html>");
-        doc.body().addClass("body-styles-cls");
+        doc.head().appendElement("style").append("div.padding{padding-left:2cm;} div.padding2{padding-left:5cm;}");
         doc.body().appendElement("div");
         recordLabelList.forEach(r->{
             doc.body().appendElement("br");
             doc.body().appendElement("div").text(r.getRecordLabel());
             r.getBands().forEach(b->{
-                doc.body().appendElement("div").text(b.getBandName()).prepend("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-                doc.body().appendElement("div").text(b.getFestivalName()).prepend("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                doc.body().appendElement("div").addClass("padding").text(b.getBandName());
+                doc.body().appendElement("div").addClass("padding2").text(b.getFestivalName());
 
             });
         });
@@ -39,9 +39,8 @@ public class HtmlHelper {
     }
 
     public static void writeToFile(String fileContent, String fileName) throws IOException {
-        String projectPath = System.getProperty("user.dir");
-        String tempFile = projectPath + File.separator+fileName;
-        File file = new File(tempFile);
+
+        File file = new File(fileName);
 
         try(OutputStream outputStream = new FileOutputStream(file.getAbsoluteFile());) {
             Writer writer = new OutputStreamWriter(outputStream);

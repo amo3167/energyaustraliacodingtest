@@ -19,10 +19,10 @@ public class RecordLabelsServiceImpl implements RecordLabelsService {
 
     Logger logger = LoggerFactory.getLogger(RecordLabelsServiceImpl.class);
 
-    private final FestivalsServiceImpl festivalsService;
+    private final FestivalsService festivalsService;
 
     @Autowired
-    public RecordLabelsServiceImpl(FestivalsServiceImpl festivalsService) {
+    public RecordLabelsServiceImpl(FestivalsService festivalsService) {
         this.festivalsService = festivalsService;
     }
 
@@ -36,14 +36,6 @@ public class RecordLabelsServiceImpl implements RecordLabelsService {
 
         return reverse(festivalsService.getFestivalsData());
 
-    }
-
-    /**
-     * Clear cache
-     */
-    @Override
-    public void clearCache() {
-        festivalsService.clearCache();
     }
 
     /**
