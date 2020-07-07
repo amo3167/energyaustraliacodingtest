@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.xml.bind.ValidationException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ public class RecordLabelsServiceImpl implements RecordLabelsService {
      * @return List of RecordLabel
      */
     @Override
-    public List<RecordLabel> getRecordLabels() {
+    public List<RecordLabel> getRecordLabels() throws ValidationException {
 
         return reverse(festivalsService.getFestivalsData());
 
@@ -52,7 +53,7 @@ public class RecordLabelsServiceImpl implements RecordLabelsService {
      */
     private List<RecordLabel> reverse(List<MusicFestival> festivals) {
 
-        Map<String,RecordLabel> recordLabels = new HashMap<>();
+        Map<String,RecordLabel> recordLabels = new HashMap<>(100);
 
         for (MusicFestival festival:festivals) {
             if(StringUtils.isEmpty(festival.getName())) {

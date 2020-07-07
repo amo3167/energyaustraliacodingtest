@@ -3,9 +3,11 @@ package com.energyaustralia.codingtest.controller;
 import com.energyaustralia.codingtest.model.RecordLabel;
 import com.energyaustralia.codingtest.service.RecordLabelsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.xml.bind.ValidationException;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 /**
  * @author amo31
@@ -22,12 +24,18 @@ public class FestivalsController {
     }
 
     @GetMapping("/recordlabels")
-    public Iterable<RecordLabel> read() {
+    public Iterable<RecordLabel> read() throws ValidationException {
         return service.getRecordLabels();
     }
 
     @DeleteMapping("/cache")
     public void clearCache() {
         service.clearCache();
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(ValidationException.class)
+    String exceptionHandler(ValidationException e) {
+        return e.getMessage();
     }
 }

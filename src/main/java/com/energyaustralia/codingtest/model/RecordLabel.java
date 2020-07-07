@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class RecordLabel implements Comparable<RecordLabel> {
 
     private String recordLabelName;
-    private TreeSet<BandInFestival> bands;
+    private SortedSet<BandInFestival> bands;
 
     public RecordLabel(String recordLabel){
         this.recordLabelName = recordLabel;
@@ -30,11 +30,11 @@ public class RecordLabel implements Comparable<RecordLabel> {
         this.recordLabelName = recordLabel;
     }
 
-    public TreeSet<BandInFestival> getBands() {
+    public SortedSet<BandInFestival> getBands() {
         return bands;
     }
 
-    public void setBands(TreeSet<BandInFestival> bands) {
+    public void setBands(SortedSet<BandInFestival> bands) {
         this.bands = bands;
     }
 
