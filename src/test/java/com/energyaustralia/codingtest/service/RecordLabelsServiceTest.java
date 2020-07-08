@@ -1,5 +1,6 @@
 package com.energyaustralia.codingtest.service;
 
+import com.energyaustralia.codingtest.client.FestivalsClient;
 import com.energyaustralia.codingtest.model.Band;
 import com.energyaustralia.codingtest.model.BandInFestival;
 import com.energyaustralia.codingtest.model.MusicFestival;
@@ -23,7 +24,7 @@ import static org.hamcrest.collection.IsIterableContainingInRelativeOrder.contai
 class RecordLabelsServiceTest {
 
     @MockBean
-    private FestivalsService festivalsService;
+    private FestivalsClient festivalsService;
 
     private RecordLabelsService recordLabelsService;
 

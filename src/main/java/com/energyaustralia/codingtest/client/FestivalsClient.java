@@ -1,7 +1,8 @@
-package com.energyaustralia.codingtest.service;
+package com.energyaustralia.codingtest.client;
 
 import com.energyaustralia.codingtest.model.MusicFestival;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
@@ -15,15 +16,16 @@ import java.util.List;
 /**
  * @author amo31
  */
-@Service("festivalsService")
-public class FestivalsServiceImpl implements FestivalsService{
+@Service
+public class FestivalsClient {
 
-    public static final String URL = "http://eacodingtest.digital.energyaustralia.com.au/api/v1/festivals";
+    private String url;
 
-    private final RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
-    public FestivalsServiceImpl(RestTemplate restTemplate) {
+    public FestivalsClient(@Value("${festivals.client.url}") String url, RestTemplate restTemplate) {
+        this.url = url;
         this.restTemplate = restTemplate;
     }
 
@@ -31,13 +33,12 @@ public class FestivalsServiceImpl implements FestivalsService{
      * Retrieve music festival data from festival management API
      * @return List of MusicFestival
      */
-    @Override
     @Cacheable("festivalDataCache")
     public List<MusicFestival> getFestivalsData() throws ValidationException {
         List<MusicFestival> result = new ArrayList<>();
 
         try {
-            MusicFestival[] festivals = restTemplate.getForObject(URL, MusicFestival[].class);
+            MusicFestival[] festivals = restTemplate.getForObject(url, MusicFestival[].class);
 
             if (festivals != null) {
                 result = Arrays.asList(festivals);

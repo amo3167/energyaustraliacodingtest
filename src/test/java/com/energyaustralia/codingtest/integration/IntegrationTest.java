@@ -1,12 +1,11 @@
 package com.energyaustralia.codingtest.integration;
 
+import com.energyaustralia.codingtest.client.FestivalsClient;
 import com.energyaustralia.codingtest.controller.FestivalsController;
 import com.energyaustralia.codingtest.model.Band;
 import com.energyaustralia.codingtest.model.BandInFestival;
 import com.energyaustralia.codingtest.model.MusicFestival;
 import com.energyaustralia.codingtest.model.RecordLabel;
-import com.energyaustralia.codingtest.service.FestivalsService;
-import com.energyaustralia.codingtest.service.FestivalsServiceImpl;
 import com.energyaustralia.codingtest.service.RecordLabelsService;
 import com.energyaustralia.codingtest.service.RecordLabelsServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,20 +22,23 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInRelativeOrder.containsInRelativeOrder;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(SpringExtension.class)
 class IntegrationTest {
 
+    private final String URL = "http://eacodingtest.digital.energyaustralia.com.au/api/v1/festivals";
+
     @MockBean
     RestTemplate restTemplate;
 
-    FestivalsService festivalsService;
+    FestivalsClient festivalsService;
     RecordLabelsService recordLabelsService;
     FestivalsController festivalsController;
 
     @BeforeEach
     public void setUp(){
-        festivalsService = new FestivalsServiceImpl(restTemplate);
+        festivalsService = new FestivalsClient(URL,restTemplate);
         recordLabelsService = new RecordLabelsServiceImpl(festivalsService);
         festivalsController = new FestivalsController(recordLabelsService);
 
@@ -56,7 +58,7 @@ class IntegrationTest {
                 ))
         };
 
-        Mockito.when(restTemplate.getForObject(FestivalsServiceImpl.URL, MusicFestival[].class)).thenReturn(festivals);
+        Mockito.when(restTemplate.getForObject(URL, MusicFestival[].class)).thenReturn(festivals);
 
         Iterable<RecordLabel> result = festivalsController.recordLabelsGet();
 

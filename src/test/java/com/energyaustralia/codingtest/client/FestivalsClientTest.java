@@ -1,4 +1,4 @@
-package com.energyaustralia.codingtest.service;
+package com.energyaustralia.codingtest.client;
 
 import com.energyaustralia.codingtest.model.Band;
 import com.energyaustralia.codingtest.model.MusicFestival;
@@ -6,8 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -22,16 +25,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
-class FestivalsServiceTest {
+class FestivalsClientTest {
+
+    private final String URL = "http://eacodingtest.digital.energyaustralia.com.au/api/v1/festivals";
 
     @MockBean
     private RestTemplate restTemplate;
 
-    private FestivalsService service;
+    private FestivalsClient service;
 
     @BeforeEach
     public void setUp(){
-        service = new FestivalsServiceImpl(restTemplate);
+        service = new FestivalsClient(URL,restTemplate);
     }
 
     @Test
@@ -49,7 +54,7 @@ class FestivalsServiceTest {
                 ))
         };
 
-        Mockito.when(restTemplate.getForObject(FestivalsServiceImpl.URL, MusicFestival[].class)).thenReturn(festivals);
+        Mockito.when(restTemplate.getForObject(URL, MusicFestival[].class)).thenReturn(festivals);
         List<MusicFestival> result = service.getFestivalsData();
 
         assertThat(result, containsInAnyOrder(festivals));
@@ -58,7 +63,7 @@ class FestivalsServiceTest {
     @Test
     void Given_Api_Error_When_GetFestivalsData_Expect_RestClientException() {
 
-        Mockito.when(restTemplate.getForObject(FestivalsServiceImpl.URL, MusicFestival[].class)).thenThrow(new RestClientException("Error"));
+        Mockito.when(restTemplate.getForObject(URL, MusicFestival[].class)).thenThrow(new RestClientException("Error"));
 
         Exception exception = assertThrows(ValidationException.class, () ->
                 service.getFestivalsData());

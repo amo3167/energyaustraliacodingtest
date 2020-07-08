@@ -1,5 +1,6 @@
 package com.energyaustralia.codingtest.service;
 
+import com.energyaustralia.codingtest.client.FestivalsClient;
 import com.energyaustralia.codingtest.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +20,10 @@ public class RecordLabelsServiceImpl implements RecordLabelsService {
 
     Logger logger = LoggerFactory.getLogger(RecordLabelsServiceImpl.class);
 
-    private final FestivalsService festivalsService;
+    private final FestivalsClient festivalsService;
 
     @Autowired
-    public RecordLabelsServiceImpl(FestivalsService festivalsService) {
+    public RecordLabelsServiceImpl(FestivalsClient festivalsService) {
         this.festivalsService = festivalsService;
     }
 
