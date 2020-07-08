@@ -40,7 +40,7 @@ public class FestivalsController {
     }
 
     @GetMapping("/recordlabels")
-    public Iterable<RecordLabel> read() throws ValidationException {
+    public Iterable<RecordLabel> recordLabelsGet() throws ValidationException {
 
         List<RecordLabel> recordLabels = service.getRecordLabels();
 

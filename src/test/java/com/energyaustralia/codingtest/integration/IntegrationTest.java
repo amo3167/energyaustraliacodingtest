@@ -58,7 +58,7 @@ class IntegrationTest {
 
         Mockito.when(restTemplate.getForObject(FestivalsServiceImpl.URL, MusicFestival[].class)).thenReturn(festivals);
 
-        Iterable<RecordLabel> result = festivalsController.read();
+        Iterable<RecordLabel> result = festivalsController.recordLabelsGet();
 
         List<RecordLabel> expected = Arrays.asList(
                 new RecordLabel("R1", Collections.singletonList(
