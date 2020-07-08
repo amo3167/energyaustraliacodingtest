@@ -35,7 +35,7 @@ class FestivalsControllerTest {
     MockMvc mockMvc;
 
     @Test
-    void testRead() throws Exception {
+    void testRecordLabelsGet() throws Exception {
 
         List<RecordLabel> recordLabelList = Collections.singletonList(
                 new RecordLabel("R1", Arrays.asList(

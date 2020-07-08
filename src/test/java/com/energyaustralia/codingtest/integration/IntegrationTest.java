@@ -43,7 +43,7 @@ class IntegrationTest {
     }
 
     @Test
-    void testRead() throws Exception {
+    void testRecordLabelsGet() throws Exception {
 
         MusicFestival[] festivals = {
                 new MusicFestival("F1", Arrays.asList(
