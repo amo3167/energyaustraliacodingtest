@@ -38,7 +38,7 @@ public class HtmlHelper {
         writeToFile(doc.toString(),filePath);
     }
 
-    public static void writeToFile(String fileContent, String fileName) throws IOException {
+    private static void writeToFile(String fileContent, String fileName) throws IOException {
 
         File file = new File(fileName);
 
